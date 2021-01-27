@@ -22,8 +22,8 @@ Roll my own "template system".
 import cgi
 import cgitb
 cgitb.enable()
-
-from cgi import escape
+import html
+# from cgi import escape 
 
 __all__ = ['login_page', 'secret_page', 'after_login_incorrect']
 
@@ -36,7 +36,7 @@ def login_page():
     return _wrapper(r"""
     <h1> Welcome! </h1>
 
-    <form method="POST" action="login.py">
+    <form method="POST" action="hello.py">
         <label> <span>Username:</span> <input autofocus type="text" name="username"></label> <br>
         <label> <span>Password:</span> <input type="password" name="password"></label>
 
@@ -44,7 +44,8 @@ def login_page():
     </form>
     """)
 
-
+# Reference to falsetru at https://stackoverflow.com/questions/20918146/how-to-do-html-escaping-in-python 
+# for cgi.escape deprecated issue
 def secret_page(username=None, password=None):
     """
     Returns the HTML for the page visited after the user has logged-in.
@@ -59,8 +60,8 @@ def secret_page(username=None, password=None):
         <span class="spoilers"> {password}</span>.
         </small>
     </p>
-    """.format(username=escape(username.capitalize()),
-               password=escape(password)))
+    """.format(username=html.escape(username.capitalize()),
+               password=html.escape(password)))
 
 
 def after_login_incorrect():

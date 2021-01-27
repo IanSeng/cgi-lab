@@ -19,37 +19,66 @@ if posted_bytes:
     print("</pre></p>")
 
     username = posted.split("=")[1].split("&")[0]
-    print(username)
     password = posted.split("=")[-1]
-    print(password)
-
+    
+    if (os.environ['HTTP_COOKIE']):
+        username = ''
+        password = ''
+        for i in os.environ['HTTP_COOKIE'].split(";"):
+            if ('Username' in i):
+                username = i.split("=")[1]
+            elif ("Password" in i):
+                password = i.split("=")[1]
+        print("""
+            <!doctype html>
+                <html>
+                    <body>
+        """)
+        print("<h3>Question5 & 6</h3>")    
+        print(templates.secret_page(username, password))
+        print("</body></html>")
+    
     if (secret.username == username and secret.password == password):
-
-        print("Set-Cookie: login = true")
+        print("Set-Cookie: Username = HELLO")
+        print("Set-Cookie: Password = BYE")
 
 
 print('Content-Type: text/html')
 if (os.environ['QUERY_STRING'] != ''):
-    
-    print("")
-    
+    print("")  
     print("""
     <!doctype html>
-    <html>
-    <body>
-    <h1>Hello I am html</h1>
+        <html>
+            <body>
+                 <h1>Hello I am html</h1>
     """)
+    print("<hr><h3>Question2</h3>")
     print(f"<p> QUERY_STRING={os.environ['QUERY_STRING']} </p>")
     print("<ul>")
     for parameter in os.environ['QUERY_STRING'].split('&'):
         (name, value) = parameter.split('=')
         print(f"<li><em>{name}</em> = {value}</li>")
     print("</ul>")
+    print("<hr><h3>Question3</h3>")
+    print(f"<p> HTTP_USER_AGENT={os.environ['HTTP_USER_AGENT']} </p>")
     # print(os.environ['HTTP_COOKIE'].split("=")[1])
 
-    
+    print("<hr><h3>Question4</h3>")
+
+    print(templates.login_page())
+
+
     if (os.environ['HTTP_COOKIE']):
-        print(templates.secret_page("HELLO", "HELLO"))
+        username = ''
+        password = ''
+        for i in os.environ['HTTP_COOKIE'].split(";"):
+            if ('Username' in i):
+                username = i.split("=")[1]
+            elif ("Password" in i):
+                password = i.split("=")[1]
+
+            
+        print(templates.secret_page(username, password))
     print("</body></html>")
 
 # # curl -i localhost:8080/hello.py
@@ -63,7 +92,6 @@ if (os.environ['QUERY_STRING'] != ''):
 
 # Question 4: How does the POSTed data come to the CGI script?
 
-print(templates.login_page())
 
 
 
