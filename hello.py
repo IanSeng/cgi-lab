@@ -80,33 +80,3 @@ if (os.environ['QUERY_STRING'] != ''):
             
         print(templates.secret_page(username, password))
     print("</body></html>")
-
-# # curl -i localhost:8080/hello.py
-# # What environment variable contains the query parameter data?
-
-# #  Question 3: What environment variable contains information about the user’s browser?
-# # Brower "HTTP_USER_AGENT": "curl/7.64.1",
-# print(f"<p> HTTP_USER_AGENT={os.environ['HTTP_USER_AGENT']} </p>")
-
-
-
-# Question 4: How does the POSTed data come to the CGI script?
-
-
-
-
-       
-        
-    
-
-
-
-
-# Refrence to https://www.tutorialspoint.com/setting-up-cookies-in-python#:~:text=We%20use%20Set%2DCookie%20HTTP,%5Cn%5Cr%5Cn. on Jan 25, 2021
-# Question 5: What is the HTTP header syntax to set a cookie from the server?
-
-
-# Question 6: What is the HTTP header syntax the browser uses to send the cookie back?
-
-# Question 7: In your own words, what are cookies used for?
-
